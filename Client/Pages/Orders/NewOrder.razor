@@ -1,0 +1,114 @@
+﻿@page "/orders/neworder"
+@page "/orders/edit/{OrderId:int}"
+@using SalesManagementApp.Shared.Models
+@inject NavigationManager navigationManager
+@inject HttpClient _httpClient
+@inject IJSRuntime JsRuntime
+
+<br />
+<EditForm Model="@order" OnValidSubmit="SaveOrder">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-primary">Create Order</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="Name" class="control-label">Window</label>
+                <InputSelect id="WindowId" @bind-Value="order.WindowId" class="form-control">
+                    <option value="Select" selected="selected">(Choose Window Name)</option>
+                    @foreach (var item in windowList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => order.WindowId)" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Order Name</label>
+                <InputText class="form-control" @bind-Value="order.OrderName" />
+                <ValidationMessage For="@(() => order.OrderName)" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">State Name</label>
+                <InputText class="form-control" @bind-Value="order.State" />
+                <ValidationMessage For="@(() => order.State)" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Order Quantity</label>
+                <InputNumber class="form-control" @bind-Value="order.Quantity" />
+                <ValidationMessage For="@(() => order.Quantity)" />
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary form-control">Submit</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success form-control" @onclick="Cancel">Back to List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+<form>
+    <div class="container">
+    </div>
+</form>
+
+
+@code {
+    [Parameter]
+    public int OrderId { get; set; }
+    protected string Title = "Add";
+
+    Orders order = new Orders();
+    List<Windows> windowList = new List<Windows>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/window");
+        response.EnsureSuccessStatusCode();
+        windowList = await _httpClient.GetFromJsonAsync<List<Windows>>("api/window");
+    }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (OrderId != 0)
+        {
+            Title = "Edit";
+            order = await _httpClient.GetFromJsonAsync<Orders>("api/order/" + OrderId);
+        }
+    }
+
+    protected async Task SaveOrder()
+    {
+        if (order.OrderId != 0)
+        {
+            await _httpClient.PutAsJsonAsync("api/order", order);
+            navigationManager.NavigateTo("/orders/index", true);
+        }
+        else
+        {            
+
+            if (order.WindowId != 0)
+            {
+                await _httpClient.PostAsJsonAsync("api/order", order);
+                await JsRuntime.InvokeVoidAsync("alert", "Saved Successfully!");
+                navigationManager.NavigateTo("/orders/neworder", true);
+            }
+            else
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "You have to select window for further proceed.");
+                //navigationManager.NavigateTo("/orders/neworder", true);
+            }
+        }
+        //Cancel();
+    }
+
+    public void Cancel()
+    {
+        navigationManager.NavigateTo("/orders/index");
+    }
+}

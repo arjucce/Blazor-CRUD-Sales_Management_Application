@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\SalesManagementApp.Client.props" />
+</Project>

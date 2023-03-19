@@ -1,0 +1,73 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = SalesManagementApp.Client
+build_property.RootNamespace = SalesManagementApp.Client
+build_property.ProjectDir = D:\Project\Asp.Net Core Blazor\WebAssembly App\SalesManagementApp\Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Project\Asp.Net Core Blazor\WebAssembly App\SalesManagementApp\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/Orders/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/Orders/NewOrder.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JkZXJzXE5ld09yZGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/SubElement/AddNew.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViRWxlbWVudFxBZGROZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/SubElement/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViRWxlbWVudFxJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/Window/AddNew.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2luZG93XEFkZE5ldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Pages/Window/WindowList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2luZG93XFdpbmRvd0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-5o0dc03517
+
+[D:/Project/Asp.Net Core Blazor/WebAssembly App/SalesManagementApp/Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2fy1dnkt41

@@ -1,0 +1,113 @@
+﻿@page "/subelement/addnew"
+@page "/subelement/edit/{ElementId:int}"
+@using SalesManagementApp.Shared.Models
+@inject NavigationManager navigationManager
+@inject HttpClient _httpClient
+@inject IJSRuntime JsRuntime
+
+<br />
+<EditForm Model="@subelement" OnValidSubmit="SaveElement">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-primary">Create Element</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="Name" class="control-label">Window</label>
+                <InputSelect id="WindowId" @bind-Value="subelement.WindowId" class="form-control">
+                    <option value="Select" selected="selected">(Choose Window Name)</option>
+                    @foreach (var item in windowList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => subelement.WindowId)" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Element Type Name</label>
+                <InputText class="form-control" @bind-Value="subelement.ElelementType" />
+                <ValidationMessage For="@(() => subelement.ElelementType)" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Element Width</label>
+                <InputNumber class="form-control" @bind-Value="subelement.Width" />
+                <ValidationMessage For="@(() => subelement.Width)" />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Element Height</label>
+                <InputNumber class="form-control" @bind-Value="subelement.Height" />
+                <ValidationMessage For="@(() => subelement.Height)" />
+            </div>            
+            <br />
+            <div class="form-group row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary form-control">Submit</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success form-control" @onclick="Cancel">Back to List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+<form>
+    <div class="container">
+    </div>
+</form>
+
+
+@code {
+    [Parameter]
+    public int ElementId { get; set; }
+    protected string Title = "Add";
+
+    Subelements subelement = new Subelements();
+    List<Windows> windowList = new List<Windows>();
+
+    protected override async Task OnInitializedAsync()
+    {        
+        var response = await _httpClient.GetAsync("api/window");
+        response.EnsureSuccessStatusCode();
+        windowList = await _httpClient.GetFromJsonAsync<List<Windows>>("api/window");        
+    }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ElementId != 0)
+        {
+            Title = "Edit";
+            subelement = await _httpClient.GetFromJsonAsync<Subelements>("api/element/" + ElementId);
+        }
+    }
+
+    protected async Task SaveElement()
+    {
+        if (subelement.ElementId != 0)
+        {
+            await _httpClient.PutAsJsonAsync("api/element", subelement);
+            navigationManager.NavigateTo("/subelement/index", true);
+        }
+        else
+        {
+            if(subelement.WindowId != 0)
+            {
+                await _httpClient.PostAsJsonAsync("api/element", subelement);
+                await JsRuntime.InvokeVoidAsync("alert", "Saved Successfully!");
+                navigationManager.NavigateTo("/subelement/addnew",true);                
+            }
+            else
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "You have to select window for further proceed.");
+                //navigationManager.NavigateTo("/subelement/addnew", true);
+            }
+        }
+        //Cancel();
+    }
+
+    public void Cancel()
+    {
+        navigationManager.NavigateTo("/subelement/index");
+    }
+}

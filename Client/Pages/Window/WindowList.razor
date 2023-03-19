@@ -1,0 +1,100 @@
+﻿@page "/window/windowList"
+@using SalesManagementApp.Shared.Models
+@inject HttpClient _httpClient
+@inject NavigationManager navigationManager
+<br />
+<div class="container">
+    <div class="card">
+        <div class='card-header'>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href='Window/AddNew' class="btn btn-primary" role="button">                        
+                        <span class="oi oi-plus" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="input-group col">
+                    <input type="text" class="form-control" placeholder="Search by name"
+                           @bind="SearchString" @bind:event="oninput" @onkeyup="FilterUser" />
+                    @if (SearchString.Length > 0)
+                    {
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" @onclick="ResetSearch">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (windowList == null)
+            {
+                <p><em>Loading... !</em></p>
+            }
+            else
+            {
+                <table class="table table-striped align-middle table-bordered">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in windowList)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    <a href='/window/edit/@item.Id' class="btn btn-outline-dark" role="button">Edit</a>
+                                    <button class="btn btn-danger" @onclick="() => Delete(item)"><span class="oi oi-trash" aria-hidden="true"></span></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+
+@code {
+    List<Windows> windowList = new List<Windows>();
+    protected List<Windows> searchData = new();
+    protected string SearchString { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/window");
+        response.EnsureSuccessStatusCode();
+        windowList = await _httpClient.GetFromJsonAsync<List<Windows>>("api/window");
+        searchData = windowList;
+    }
+
+    protected async void Delete(Windows windows)
+    {
+        await _httpClient.DeleteAsync("api/window/" + windows.Id);
+        navigationManager.NavigateTo("/window/windowList", true);
+    }
+
+    protected void FilterUser()
+    {
+        if (!string.IsNullOrEmpty(SearchString))
+        {
+            windowList = searchData.Where(x => x.Name.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+        }
+        else
+        {
+            windowList = searchData;
+        }
+    }
+
+    public void ResetSearch()
+    {
+        SearchString = string.Empty;
+        windowList = searchData;
+    }
+}

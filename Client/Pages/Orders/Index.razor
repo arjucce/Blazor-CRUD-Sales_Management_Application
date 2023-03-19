@@ -1,0 +1,132 @@
+﻿@page "/orders/index"
+@using SalesManagementApp.Shared.Models
+@using SalesManagementApp.Shared.Models.VM;
+@inject HttpClient _httpClient
+@inject NavigationManager navigationManager
+
+<br />
+<div class="container">
+    <div class="card">
+        <div class='card-header'>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href='orders/neworder' class="btn btn-primary" role="button">
+                        <span class="oi oi-plus" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="input-group col">
+                    <input type="text" class="form-control" placeholder="Search by Order Name"
+                           @bind="SearchString" @bind:event="oninput" @onkeyup="FilterUser" />
+                    @if (SearchString.Length > 0)
+                    {
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" @onclick="ResetSearch">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (windowElementsVMs == null)
+            {
+                <p><em>Loading... !</em></p>
+            }
+            else
+            {
+                <table class="table table-striped align-middle table-bordered">
+                    <thead class="table-success">
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Order Name</th>
+                            <th>State</th>
+                            @*<th>Window Id</th>*@
+                            <th>Window Name</th>
+                            <th>Quantity</th>
+                            <th>Total Element</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        @foreach (var item in windowElementsVMs)
+                        {
+                            <tr>
+                                <td>@item.OrderId </td>
+                                <td>@item.OrderName </td>
+                                <td>@item.OrderState</td>
+                                @*<td>@item.WindowId</td>*@
+                                <td>@item.WindowName</td>
+                                <td>@item.OrderQuantity</td>
+                                <td> 
+                                    @{
+                                        int total = 0;
+                                        foreach (var a in subelements)
+                                        {
+                                            if(item.WindowId == a.WindowId)
+                                            {
+                                                total++;
+                                            }
+                                        }                                        
+                                    }
+                                    @total
+                                </td>
+                                <td>
+                                    <a href='/orders/edit/@item.OrderId' class="btn btn-outline-dark" role="button">Edit</a>
+                                    <button class="btn btn-danger" @onclick="() => Delete(item)"><span class="oi oi-trash" aria-hidden="true"></span></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+
+@code {
+    List<Subelements> subelements = new List<Subelements>();   
+
+     List<OrderVM> windowElementsVMs = new List<OrderVM>();
+
+    protected List<OrderVM> searchData = new();
+    protected string SearchString { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _httpClient.GetAsync("api/Order");
+        response.EnsureSuccessStatusCode();
+        windowElementsVMs = await _httpClient.GetFromJsonAsync<List<OrderVM>>("api/Order");
+
+        var elements = await _httpClient.GetAsync("api/Element/GetAllElements");
+        elements.EnsureSuccessStatusCode();
+        subelements = await _httpClient.GetFromJsonAsync<List<Subelements>>("api/Element/GetAllElements");
+
+        searchData = windowElementsVMs;
+    }
+
+    protected async void Delete(OrderVM windowElementsVMs)
+    {
+        await _httpClient.DeleteAsync("api/order/" + windowElementsVMs.OrderId);
+        navigationManager.NavigateTo("/orders/index", true);
+    }
+
+    protected void FilterUser()
+    {
+        if (!string.IsNullOrEmpty(SearchString))
+        {
+            windowElementsVMs = searchData.Where(x => x.OrderName.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+        }
+        else
+        {
+            windowElementsVMs = searchData;
+        }
+    }
+
+    public void ResetSearch()
+    {
+        SearchString = string.Empty;
+        windowElementsVMs = searchData;
+    }
+}
