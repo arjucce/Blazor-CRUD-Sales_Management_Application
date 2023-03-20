@@ -1,4 +1,4 @@
-Welcome to your Sales Management Application!!!!!
+Welcome to the Blazor WASM Sales Management Application
 
 The operation flow is as follows for your ready reference ==>
 
