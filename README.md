@@ -9,12 +9,12 @@ Feature
 
 The following feature are available in this application:
 
-•	Routing
-•	Navigation
-•	Form validation
-•	Pages and Components
-•	Passing data and delegates between components and pages
-•	Dependency injection
+Routing
+Navigation
+Form validation
+Pages and Components
+Passing data and delegates between components and pages
+Dependency injection
 
 
 How to run
