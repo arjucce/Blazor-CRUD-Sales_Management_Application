@@ -1,4 +1,4 @@
-[README.docx](https://github.com/arjucce/SalesManagementApp/files/11041891/README.docx)
+
 Blazor-CRUD-Sales Management Application
 
 A simple CRUD application written in Blazor Web Assembly.
