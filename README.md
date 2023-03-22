@@ -8,6 +8,7 @@ Model class and View Model class in Shared, so both front-end and back-end can s
 Feature
 
 The following feature are available in this application:
+
 •	Routing
 •	Navigation
 •	Form validation
@@ -15,5 +16,7 @@ The following feature are available in this application:
 •	Passing data and delegates between components and pages
 •	Dependency injection
 
+
 How to run
+
 SQL Server backup contain in DB backup file. Sample data in this backup file. Simple restore the backup in and change of connection string will run the application.
