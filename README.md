@@ -1,13 +1,16 @@
-Welcome to the Blazor WASM Sales Management Application
+Blazor-CRUD-Sales Management Application
+A simple CRUD application written in Blazor Web Assembly.
+The application is structured as followed:
+	A data layer containing interface and service.
+	Model class and View Model class in Shared, so both front-end and back-end can safely used shared models and validation.
+Feature
+The following feature are available in this application:
+•	Routing
+•	Navigation
+•	Form validation
+•	Pages and Components
+•	Passing data and delegates between components and pages
+•	Dependency injection
 
-The operation flow is as follows for your ready reference ==>
-
-Order management manage the order with order details which covers Order Id, Order Name, State Name, Window Name, Total 
-Quantity and how many window in the particular ordered window. Also the user can modify and delete the order based on requirement.
-
-Window management manage the basic insert, update and delete window.
-
-The SubElement are manged by the Element Management menu. 
-
-Note : Basic search option are available in every page and also validation are available. The application build based on Repository pattern.
-The Models are in shared portion to communicate with Client and Server. To achieve the purpose use service to connect the data to the controller.
+How to run
+SQL Server backup contain in DB backup file. Sample data in this backup file. Simple restore the backup in and change of connection string will run the application.
