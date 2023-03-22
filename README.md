@@ -1,9 +1,12 @@
 Blazor-CRUD-Sales Management Application
+
 A simple CRUD application written in Blazor Web Assembly.
+
 The application is structured as followed:
-	A data layer containing interface and service.
-	Model class and View Model class in Shared, so both front-end and back-end can safely used shared models and validation.
+A data layer containing interface and service.
+Model class and View Model class in Shared, so both front-end and back-end can safely used shared models and validation.
 Feature
+
 The following feature are available in this application:
 •	Routing
 •	Navigation
